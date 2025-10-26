@@ -1,1 +1,25 @@
+
+Python
+
+pycache/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-selfcheck.json
+
+Build artifacts
+
+build/
+dist/
+*.egg-info/
+*.whl
+*.tar.gz
+
+IDE / OS
+
+.vscode/
 .idea/
+*.DS_Store
