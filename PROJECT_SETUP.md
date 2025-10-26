@@ -29,3 +29,20 @@ Python-Deep-Dive/
 ├── requirements.txt        # Project dependencies (for testing/linting)
 └── setup.py                # Build script for the package (using setuptools)
 ```
+
+## Requirements.txt Details
+
+The `requirements.txt` file contains the following dependencies:
+
+```
+pytest
+pytest-cov
+```
+
+### Why these dependencies were added:
+
+- **pytest**: A popular Python testing framework that provides a simple way to write and run tests. It's used to execute all unit tests in the `tests/` directory and provides detailed test reporting.
+
+- **pytest-cov**: A pytest plugin that adds coverage reporting functionality. It measures how much of the code is executed during tests, helping to identify untested code paths and ensuring comprehensive test coverage.
+
+These dependencies are essential for the project's testing infrastructure and CI/CD pipeline, allowing developers to run tests locally and ensuring code quality through automated testing in the GitHub Actions workflow.
