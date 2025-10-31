@@ -1,0 +1,54 @@
+# This is a GitHub Actions workflow file.
+# It defines the "Continuous Integration" (CI) process.
+# This will run automatically on GitHub when you push code.
+
+name: Python CI Pipeline
+
+# Triggers: Run this workflow on 'push' to any branch
+# and on 'pull_request' to the 'main' branch.
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # Define a single job called "build-and-test"
+  build-and-test:
+    # Run this job on the latest Ubuntu virtual machine
+    runs-on: ubuntu-latest
+
+    # Use a matrix strategy to test against multiple Python versions
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+      # --- 1. Checkout Code ---
+      # This step downloads your repository code into the runner
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      # --- 2. Set up Python ---
+      # This step sets up the specified Python version from the matrix
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # --- 3. Install Dependencies ---
+      # Install pip, then install the dependencies from requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+          # We also install our package in "editable" mode
+          # so it can be found by the test runner
+          pip install -e .
+
+      # --- 4. Run Tests ---
+      # Run pytest with code coverage
+      - name: Run tests with pytest
+        run: |
+          pytest --cov=py_deep_dive
